@@ -1,0 +1,61 @@
+<template>
+    <lightning-card title="Country & ZIP Code Lookup" icon-name="custom:custom63">
+        <div class="slds-p-around_medium">
+            <lightning-combobox
+                label="Select Country"
+                value={countryCode}
+                options={countryOptions}
+                onchange={handleCountryChange}
+                required
+            ></lightning-combobox>
+
+            <lightning-input
+                label="Enter ZIP Code"
+                value={zipCode}
+                onchange={handleZipCodeChange}
+                type="text"
+                maxlength="10"
+                class="slds-m-top_medium"
+                required
+            ></lightning-input>
+
+            <lightning-button
+                label="Search"
+                onclick={searchZipCode}
+                class="slds-m-top_medium"
+                disabled={isLoading}
+            ></lightning-button>
+
+            <template if:true={isLoading}>
+                <lightning-spinner 
+                    alternative-text="Loading..." 
+                    size="medium" 
+                    class="slds-m-top_medium"
+                ></lightning-spinner>
+            </template>
+
+            <template if:true={errorMessage}>
+                <div class="slds-notify slds-notify_alert slds-theme_error slds-m-top_medium" role="alert">
+                    <span class="slds-assistive-text">error</span>
+                    <h2>{errorMessage}</h2>
+                </div>
+            </template>
+
+            <!--<template if:true={responseData}>
+                <div class="slds-m-top_medium">
+                    <p>Country: {responseData.country}</p>
+                    <p>ZIP Code: {responseData.postCode}</p>
+                    <template if:true={responseData.places}>
+                        <template for:each={responseData.places} for:item="place">
+                            <div key={place.placeName} class="slds-m-top_small">
+                                <p>Place: {place.placeName}</p>
+                                <p>State: {place.state} ({place.stateAbbreviation})</p>
+                                <p>Coordinates: {place.latitude}, {place.longitude}</p>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+            </template>-->
+        </div>
+    </lightning-card>
+</template>

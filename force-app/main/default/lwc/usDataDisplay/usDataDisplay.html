@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title="US Location Data">
+        <div class="slds-p-around_medium">
+            <template if:true={usData}>
+                <p><strong>Country:</strong> {country}</p>
+                <template if:true={hasPlaces}>
+                    <div class="slds-m-top_small">
+                        <strong>Places:</strong>
+                        <ul class="slds-list_dotted">
+                            <template for:each={places} for:item="place">
+                                <li key={place.placeName} class="slds-m-top_small">
+                                    <div><strong>City:</strong> {place.placeName}</div>
+                                    <div><strong>State:</strong> {place.state} ({place.stateAbbreviation})</div>
+                                    <div><strong>Coordinates:</strong> {place.latitude}, {place.longitude}</div>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
+                <template if:false={hasPlaces}>
+                    <p>No places found for this ZIP code</p>
+                </template>
+            </template>
+            <template if:false={usData}>
+                <p>No US data available</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
